@@ -1,11 +1,11 @@
-# EQUIPO <NOMBRE DEL EQUIPO>
+# EQUIPO UNIX
 
 
 ## Integrantes:
 
-* Integrante juanito a0000
-* Integrante pepito a11111
-* ....
+* alanis arias victor javier 338741
+* marco saenz 329612
+* araly estrada 311227
 
 
 
