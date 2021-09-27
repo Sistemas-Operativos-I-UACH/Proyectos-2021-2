@@ -12,4 +12,4 @@ Proyectos para la clase de Sistemas Operativos Ago-Dic de 2021
 - fish?
 * oliwi
 * Ina
-* Alex ina
+* Alex
