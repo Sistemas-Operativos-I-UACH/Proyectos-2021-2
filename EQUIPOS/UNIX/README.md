@@ -4,8 +4,8 @@
 ## Integrantes:
 
 * alanis arias victor javier 338741
-* Integrante 
-* ....
+* Marco Sáenz 329612
+* araly estrada 311227
 
 
 

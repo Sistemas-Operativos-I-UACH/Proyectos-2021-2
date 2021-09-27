@@ -1,11 +1,9 @@
-# EQUIPO <NOMBRE DEL EQUIPO>
+# EQUIPO <NOMBRE DE EQUIPO>
 
 
 ## Integrantes:
 
-* Integrante juanito a0000
-* Integrante pepito a11111
-* ....
+* pepito 
 
 
 

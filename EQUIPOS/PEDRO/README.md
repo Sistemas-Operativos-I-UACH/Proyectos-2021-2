@@ -1,4 +1,4 @@
-# EQUIPO <NOMBRE DEL EQUIPO>
+# EQUIPO <PEDRO>
 
 
 ## Integrantes:
