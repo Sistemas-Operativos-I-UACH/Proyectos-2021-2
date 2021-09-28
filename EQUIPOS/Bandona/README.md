@@ -4,9 +4,9 @@
 ## Integrantes:
 
 * Pablo Mendias Villalobos - 343438
-* Kevin David Loya Pacheco, alias el donas - 338961
+* Kevin David Loya Pacheco - 338961
 * Jaison Enrique Garcia Romero - 338837
-* Luis Fernando Quintana Muños, alias el parral 338917
+* Luis Fernando Quintana Muños - 338917
 
 
 
