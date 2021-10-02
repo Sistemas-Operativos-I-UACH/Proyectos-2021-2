@@ -1,4 +1,4 @@
-# Equipo "MILENIALS"
+# Equipo "MILLENIALS"
 ## Integrantes:
 * _Jesica Yamile Salcido Cadena - 329575._
 * _Irwin Lazaro Burciaga Alvarado - 335807._
