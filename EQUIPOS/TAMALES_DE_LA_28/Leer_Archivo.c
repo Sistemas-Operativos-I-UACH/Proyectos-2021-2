@@ -3,7 +3,7 @@
 int main()
 {
     FILE *file;
-    char lectura[300];
+    char lectura[50]; 
     file = fopen("myarchivo.txt","r");
     if (file==NULL)
     {
@@ -12,11 +12,11 @@ int main()
     }  
 
     while(!feof(file))
-    {        
-        fgets(lectura,300,file);
+    { 
+        fflush(stdin);       
+        fgets(lectura,50,file);
+        printf("%s",lectura);    
     }
-    printf("Archvio leido\n%s",lectura);
-
     fclose(file);
     return 0;
 }
