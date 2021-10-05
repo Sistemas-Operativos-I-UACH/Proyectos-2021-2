@@ -12,11 +12,11 @@ int main(){
         return 1;
     }
     
-    while (feof(punteroArchivo) != 1)
+    while (feof(punteroArchivo) == 0 )
     {
         fgets(cadena, 255, punteroArchivo);
         fflush(stdin);
-        fputs(cadena, punteroArchivo);
+        puts(cadena);
     }
     
     fclose(punteroArchivo);
