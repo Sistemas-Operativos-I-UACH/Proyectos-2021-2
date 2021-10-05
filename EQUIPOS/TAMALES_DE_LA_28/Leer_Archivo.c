@@ -10,10 +10,8 @@ int main()
        printf ("Crea el archivo primero"); 
        return 1;
     }  
-
     while(!feof(file))
-    { 
-        fflush(stdin);       
+    {       
         fgets(lectura,50,file);
         printf("%s",lectura);    
     }
