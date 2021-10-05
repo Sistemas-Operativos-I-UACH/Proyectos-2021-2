@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+//Lee un archivo
 int main()
 {
     FILE *file;
