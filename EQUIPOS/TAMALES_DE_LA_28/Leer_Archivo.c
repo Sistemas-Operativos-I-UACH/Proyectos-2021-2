@@ -3,7 +3,7 @@
 int main()
 {
     FILE *file;
-    char lectura[50]; 
+    char lectura[255]; 
     file = fopen("myarchivo.txt","r");
     if (file==NULL)
     {
@@ -12,7 +12,7 @@ int main()
     }  
     while(!feof(file))
     {       
-        fgets(lectura,50,file);
+        fgets(lectura,255,file);
         printf("%s",lectura);    
     }
     fclose(file);

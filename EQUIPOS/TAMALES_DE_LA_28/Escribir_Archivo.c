@@ -11,8 +11,9 @@ int main()
        return 1;
     }
     printf("Ingrese el texto: \n");
-    fgets(buffer,255,stdin);
+    gets(buffer);
     fprintf(file,"%s",buffer);
+
     fclose(file);
     return 0;
 }
