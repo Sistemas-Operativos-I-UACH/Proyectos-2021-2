@@ -14,8 +14,8 @@ int main()
     fgets(buffer,255,stdin); //Es segura pero lee el salto de linea...
     //gets(buffer); Lee sin salto de linea pero es peligrosa buffer overflow..
 
-    strtok(buffer, "\n"); //Elimina salto de linea
-    //buffer[strlen(buffer) - 1] = '\0'; //Elimina salto de linea
+    //strtok(buffer, "\n"); //Elimina salto de linea
+    buffer[strlen(buffer) - 1] = '\0'; //Elimina salto de linea
 
 
 
