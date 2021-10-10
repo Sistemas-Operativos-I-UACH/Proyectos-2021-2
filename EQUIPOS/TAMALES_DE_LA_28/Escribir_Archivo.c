@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string>
+#include <string.h>
 //Escribe texto en un archivo
 int main()
 {
