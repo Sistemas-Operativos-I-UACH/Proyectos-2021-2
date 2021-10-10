@@ -11,8 +11,14 @@ int main()
        return 1;
     }
     printf("Ingrese el texto: \n");
-    fgets(buffer,255,stdin);
-    //gets(buffer);
+    fgets(buffer,255,stdin); //Es segura pero lee el salto de linea...
+    //gets(buffer); Lee sin salto de linea pero es peligrosa buffer overflow..
+
+    strtok(buffer, "\n"); //Elimina salto de linea
+    //buffer[strlen(buffer) - 1] = '\0'; //Elimina salto de linea
+
+
+
     fprintf(file,"%s",buffer);
     fclose(file);
     return 0;
