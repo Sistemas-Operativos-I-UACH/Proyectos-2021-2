@@ -9,4 +9,4 @@
 * Integrante Jorge Eduardo Carrasco Lopez a338734
 
 
-* Maestro: Iv
+* Maestro: Iván Chavero <ichavero@uach.mx>
