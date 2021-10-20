@@ -39,7 +39,7 @@ int main(int argc, char **argv)
     }
 
     while ((de = readdir(dr)) != NULL)
-        if (strchr(de->d_name, '0') || strchr(de->d_name, '1') || strchr(de->d_name, '3') ||
+        if (strchr(de->d_name, '0') || strchr(de->d_name, '1') || strchr(de->d_name, '2') || strchr(de->d_name, '3') ||
             strchr(de->d_name, '4') || strchr(de->d_name, '5') || strchr(de->d_name, '6') ||
             strchr(de->d_name, '7') || strchr(de->d_name, '8') || strchr(de->d_name, '9'))
         {
