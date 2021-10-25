@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <string.h>
+#include <dirent.h>
+
+int main()
+{
+    DIR *folder;
+    struct dirent *entry;
+    int files = 0;
+
+    folder = opendir("/proc/");		// BUSCADOR DE PROCESOS
+    
+    if(folder == NULL)
+    {
+        perror("Unable to read directory");
+        return(1);
+    }
+
+    while((entry=readdir(folder)) )
+    {
+        files++;
+        printf("File %3d: %s\n", files, entry->d_name);
+        if (strcmp(entry->d_name,"cmdline")==0){
+        	printf("============================\n");
+        	printf("File %3d: %s\n", files, entry->d_name);
+        	printf("============================\n");
+        }
+    }
+
+    closedir(folder);
+
+    return(0);
+}
