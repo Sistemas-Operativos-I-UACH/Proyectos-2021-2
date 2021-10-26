@@ -1,25 +1,32 @@
 #include<stdio.h>
 #include<dirent.h>
-#include<ctype.h>
+#include<ctype.h>  // Funcion is_digit 
 #include<string.h>
+#include<unistd.h>  // Funcion read()
+#include<fcntl.h>  // Funcion open() - opciones de control de archivos (O_RDONLY)
 
-void abrirArchivo(char *nombreArchivo){
 
-    char cadena[255];
-    FILE *punteroArchivo = fopen(nombreArchivo, "r");
 
-    if (punteroArchivo == NULL)
+void abrirArchivo(const char *nombreArchivo){
+    
+    char cmdline[255];
+    FILE *punteroArchivo = NULL;
+    int fd = open(nombreArchivo, O_RDONLY);  // File descriptor (index) - abre el archivo y regresa un -1 en caso de error.
+    
+    if (fd == -1)
     {
         printf("ERROR: No se pudo abrir el archivo %s.\n", nombreArchivo);
     }
-    
-    while (feof(punteroArchivo) == 0 )
-    {
-        fgets(cadena, 255, punteroArchivo);
-        puts(cadena);
+    else{
+        char ch1;
+        printf("\nArchivo (%s) abierto: ", nombreArchivo);
+        do{
+            ch1 = read(fd, &cmdline, 255);  // Copiamos contenido del archivo en arreglo cmdline 
+            printf("%s\n", cmdline);
+        }while(ch1 > 0);  // Si variable ch1 es 0 entonces alcanzo el final
+        close(fd);
+        printf("--------------------------------------------------------\n");
     }
-    
-    fclose(punteroArchivo);
 }
 
 
@@ -27,25 +34,26 @@ int main(){
 
     DIR *directorio;
     struct dirent *dt;
+    char rutaArchivo[255];
     
-    directorio=opendir("/proc/");
+    directorio = opendir("/proc/");  // Especificamos el directorio proc
 
-    int esDirectorio=0;
-    while((dt=readdir(directorio)) != NULL){
-        for(int i=0; i < strlen(dt->d_name); i++){
+    
+    while((dt = readdir(directorio)) != NULL){
+        int esDirectorio=0;  // Variable para diferenciar entre directorios(1) y archivos(0)
+        for(int i=0; i < strlen(dt->d_name); i++){  // si nombre del directorio/archivo contiene caracteres no numericos es directorio.
             if(!isdigit(dt->d_name[i])){
-                
                 esDirectorio=1;
                 break;
             }
-            else{
-                esDirectorio=0;
-            }
         }
         
-        if(esDirectorio==0){
-            puts(dt->d_name);
-            abrirArchivo(dt->d_name);
+        if(esDirectorio==0){  // Si todos los caracteres fueron numericos entonces es archivo y construye la ruta del archivo
+            strcpy(rutaArchivo, "/proc/");
+            strcat(rutaArchivo, dt->d_name);
+            strcat(rutaArchivo, "/cmdline");
+            printf("Reading %s", rutaArchivo);
+            abrirArchivo(rutaArchivo);  // Llama a la funcion para leer el archivo
         }
     }
     
