@@ -1,98 +1,85 @@
+#include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <dirent.h>
 #include <string.h>
+#include <ctype.h>
 
-void procStat();
-void cpuInfo();
-void memInfo();
-void procMisc();
+int main(int argc, char* argv[])
+{
+    char statFileName[128];
+   
+    sprintf(statFileName, "/proc/1/stat");
+    FILE *fd = fopen(statFileName, "r");
+    if (fd == NULL)
+        return perror("No puedo encontrar el proceso especificado"),1;
+    char
+    state,
+      name[32];
+    int
+      pid,
+      ppid,
+      pgrp,
+      session,
+      tty,
+      tpgid,
+      nlwp;
 
-int main(){
+    unsigned long
+    flags,
+      min_flt,
+      cmin_flt,
+      maj_flt,
+      cmaj_flt,
+      vsize;
 
-    cpuInfo();
-    memInfo();
-    procMisc();
-    procStat();
+    unsigned long long
+    utime,
+      stime,
+      cutime,
+      cstime,
+      start_time;
 
-    return 0;
-}
+    long
+    priority,
+      nice,
+      alarm,
+      rss;
+   
+    fscanf(fd, "%d %s "
+                 "%c "
+                 "%d %d %d %d %d "
+                 "%lu %lu %lu %lu %lu "
+                 "%Lu %Lu %Lu %Lu "
+                 "%ld %ld "
+                 "%d "
+                 "%ld "
+                 "%Lu "
+                 "%lu "
+                 "%ld",
+                 &pid,
+                 name,
+                 &state,
+                 &ppid, &pgrp, &session, &tty, &tpgid,
+                 &flags, &min_flt, &cmin_flt, &maj_flt, &cmaj_flt,
+                 &utime, &stime, &cutime, &cstime,
+                 &priority, &nice,
+                 &nlwp,
+                 &alarm,
+                 &start_time,
+                 &vsize,
+                 &rss);
+   
+    fclose(fd);
 
-void cpuInfo(){
-
-    FILE *archivo; 
-    char caracter;
-
-    archivo = fopen("/proc/cpuinfo","r");
-    if(archivo==NULL)
-        printf("Error en la apartura del archivo\n");
-    else
-        printf("La informacion del CPU es: \n\n");
-        while (feof(archivo)==0)
-        {
-            caracter = fgetc(archivo); 
-            printf("%c",caracter);
-        }
-    
-    fclose(archivo);
-         
-}
-
-void memInfo(){
-
-    FILE *archivo; 
-    char caracter;
-
-    archivo = fopen("/proc/meminfo","r");
-    if(archivo==NULL)
-        printf("Error en la apartura del archivo\n");
-    else
-        printf("La informacion de la memoria del sistema es: \n\n");
-        while (feof(archivo)==0)
-        {
-            caracter = fgetc(archivo); 
-            printf("%c",caracter);
-        }
-        
-    fclose(archivo);
-
-}
-
-void procMisc(){
-
-    FILE *archivo;
-    char caracter;
-
-    archivo = fopen("/proc/misc","r");
-    if(archivo==NULL)
-        printf("Error en la apartura del archivo\n");
-    else
-        printf("\nLa informacion de la memoria del sistema es: \n\n");
-        while (feof(archivo)==0)
-        {
-            caracter = fgetc(archivo); 
-            printf("%c",caracter);
-        }
-        
-    fclose(archivo);
-
-}
-
-void procStat(){
-
-    FILE *archivo; 
-    char caracter;
-
-    archivo = fopen("/proc/stat","r");
-    if(archivo==NULL)
-        printf("Error en la apartura del archivo\n");
-    else
-        printf("La informacion del stat es: \n\n");
-        while (feof(archivo)==0)
-        {
-            caracter = fgetc(archivo);
-            printf("%c",caracter);
-        }
-    
-    fclose(archivo);
-
+    printf ("PID: %d\n"
+                    "CMD: %s\n"
+                    "Estado: %c\n"
+                    "PPID: %d\n"
+                    "Tiempo usuario: %Lu\n"
+                    "Tiempo kernel: %Lu\n"
+                    "Nice: %ld\n"
+                    "Threads: %d\n"
+                    "Iniciado en: %Lu\n"
+                    "Tamaño: %lu\n",
+                    pid, name, state, ppid, utime, stime, nice, nlwp, start_time, vsize);
 }
