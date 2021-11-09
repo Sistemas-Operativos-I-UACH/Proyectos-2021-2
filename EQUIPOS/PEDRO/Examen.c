@@ -2,6 +2,7 @@
 #include<dirent.h>
 #include<ctype.h> 
 #include<string.h>
+
 void abrirNombre(char *nombreArchivo){
     FILE *punteroArchivo = fopen(nombreArchivo, "r");
     char proc[255];
@@ -14,34 +15,37 @@ void abrirNombre(char *nombreArchivo){
         fclose(punteroArchivo);
     }
 }
+
 void abrirMemoria(char *nombreArchivo){
     FILE *punteroArchivo = fopen(nombreArchivo, "r");
     char proc[255];
-    long int no,si;
+    long int si;
     if (punteroArchivo == NULL){
         printf("ERROR: No se pudo abrir el archivo\n");
     }
     else{
         fgets(proc,255,punteroArchivo);
-        sscanf(proc,"%ld %ld",&no,&si);
+        sscanf(proc,"%*ld %ld",&si);
         printf("Memoria: %ld kB\n",si*4);
         fclose(punteroArchivo);
     }
 }
+
 void abrirPriority(char *nombreArchivo){
     FILE *punteroArchivo = fopen(nombreArchivo, "r");
-    char proc[255],no[255];
+    char proc[255];
     int si;
     if (punteroArchivo == NULL){
         printf("ERROR: No se pudo abrir el archivo\n");
     }
     else{
         fgets(proc,255,punteroArchivo);
-        sscanf(proc,"%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %d",no,no,no,no,no,no,no,no,no,no,no,no,no,no,no,no,no,no,&si);
+        sscanf(proc,"%*s %*[^)] %*[)] %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %d", &si);
         printf("Prioridad: %d\n",si);
         fclose(punteroArchivo);
     }
 }
+
 void kernelOno(char *nombreArchivo){
     FILE *punteroArchivo = fopen(nombreArchivo, "r");
     char proc;
@@ -57,6 +61,7 @@ void kernelOno(char *nombreArchivo){
         fclose(punteroArchivo); 
     }    
 }
+
 void MemTotal(char *nombreArchivo){
     FILE *punteroArchivo = fopen(nombreArchivo, "r");
     char proc[255];
@@ -69,6 +74,7 @@ void MemTotal(char *nombreArchivo){
         fclose(punteroArchivo);
     }
 }
+
 int main(){
     DIR *directorio = opendir("/proc/");
     struct dirent *dt;
@@ -77,37 +83,37 @@ int main(){
         printf("Error al abrir /proc/\n");
     }else{
         while((dt = readdir(directorio)) != NULL){
-        int esDirectorio=0;  
-        for(int i=0; i < strlen(dt->d_name); i++){  
-            if(!isdigit(dt->d_name[i])){
-                esDirectorio=1;
-                break;
+            int esDirectorio=0;  
+            for(int i=0; i < strlen(dt->d_name); i++){  
+                if(!isdigit(dt->d_name[i])){
+                    esDirectorio=1;
+                    break;
+                }
             }
-        }
-        if(esDirectorio==0){ 
-            printf("ID: %s\n", dt->d_name);
+            if(esDirectorio==0){ 
+                printf("ID: %s\n", dt->d_name);
 
-            strcpy(rutaArchivo, "/proc/");
-            strcat(rutaArchivo, dt->d_name);
-            strcat(rutaArchivo, "/comm");
-            abrirNombre(rutaArchivo); 
+                strcpy(rutaArchivo, "/proc/");
+                strcat(rutaArchivo, dt->d_name);
+                strcat(rutaArchivo, "/comm");
+                abrirNombre(rutaArchivo); 
 
-            strcpy(rutaArchivo, "/proc/");
-            strcat(rutaArchivo, dt->d_name);
-            strcat(rutaArchivo, "/statm");
-            abrirMemoria(rutaArchivo); 
+                strcpy(rutaArchivo, "/proc/");
+                strcat(rutaArchivo, dt->d_name);
+                strcat(rutaArchivo, "/statm");
+                abrirMemoria(rutaArchivo); 
 
-            strcpy(rutaArchivo, "/proc/");
-            strcat(rutaArchivo, dt->d_name);
-            strcat(rutaArchivo, "/stat");
-            abrirPriority(rutaArchivo); 
+                strcpy(rutaArchivo, "/proc/");
+                strcat(rutaArchivo, dt->d_name);
+                strcat(rutaArchivo, "/stat");
+                abrirPriority(rutaArchivo); 
 
-            strcpy(rutaArchivo, "/proc/");
-            strcat(rutaArchivo, dt->d_name);
-            strcat(rutaArchivo, "/cmdline");
-            kernelOno(rutaArchivo); 
-            printf("--------------------------------------------------------\n");
-        }
+                strcpy(rutaArchivo, "/proc/");
+                strcat(rutaArchivo, dt->d_name);
+                strcat(rutaArchivo, "/cmdline");
+                kernelOno(rutaArchivo); 
+                printf("--------------------------------------------------------\n");
+            }
         }
     }
     MemTotal("/proc/meminfo"); 
