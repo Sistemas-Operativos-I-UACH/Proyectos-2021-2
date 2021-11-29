@@ -5,8 +5,7 @@
 
 * alanis arias victor javier 338741
 * Marco Antonio Saenz Chavez 329612
-* Alejandra Araly Mora Estrada 311227
-
+* Irwin Lázaro Burciaga Alvarado 335807
 
 
 Referencias importantres para examen
