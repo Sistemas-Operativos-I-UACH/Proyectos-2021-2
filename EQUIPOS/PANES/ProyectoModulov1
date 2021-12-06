@@ -1,0 +1,67 @@
+#include <linux/kernel.h>
+#include <linux/module.h>
+#include <linux/init.h>
+#include <linux/sched/signal.h>
+#include <linux/sched.h>
+
+#define DEVICE_NAME "moduloj"
+
+struct task_struct *task;        
+struct task_struct *task_child;       
+struct list_head *list;           
+
+
+
+int iterate_init(void)                
+{
+
+    printk(KERN_INFO "%s","CARGANDO MODULO\n");   
+    
+    
+    
+    for_each_process( task ){          
+        printk(KERN_INFO "\nID PROCESO: %d PROCESO: %s ESTADO: %ld NICENESS: %d",task->pid, task->comm, task->state, task_nice);
+        list_for_each(list, &task->children){                  
+
+            task_child = list_entry( list, struct task_struct, sibling );    
+    
+            printk(KERN_INFO "\nHIJO DE %s[%d] ID PROCESO: %d PROCESO: %s ESTADO: %ld NICENESS: %d",task->comm, task->pid, 
+                task_child->pid, task_child->comm, task_child->state, task_nice);
+                		if (count == 8 && linea[5] == '0')
+		{
+		printf("PERTENENCIA %.30s [Kernel]\n", linea);
+		break;
+		}else if(count == 8){
+		printf("PERTENENCIA %.30s [Usuario]\n", linea);
+		break;
+		}
+		else
+		{
+		count++;
+		}
+		}
+		fclose(fdu);
+		}
+        }
+        printk("-----------------------------------------------------");   
+    }    
+    
+
+    return 0;
+
+}              
+    
+void cleanup_exit(void)      
+{
+
+
+    printk(KERN_INFO "%s","MODULO REMOVIDO\n");
+
+}               
+
+module_init(iterate_init);    
+module_exit(cleanup_exit);   
+
+MODULE_LICENSE("GPL");
+MODULE_DESCRIPTION("ITERARANDO TODOS LOS PROCESOS/HIJOS DEL SISTEMA");
+MODULE_AUTHOR("Laerehte");
